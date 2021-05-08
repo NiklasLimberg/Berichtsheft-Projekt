@@ -1,3 +1,3 @@
-export type refreshTokenContent = {
+export type tokenContent = {
     userId: string
 }

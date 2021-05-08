@@ -8,7 +8,6 @@ app.use('/auth', AuthController)
 
 app.use(express.json())
 
-
 export default {
   path: '/api',
   handler: app
