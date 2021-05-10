@@ -4,9 +4,10 @@ import AuthController from './auth'
 
 const app = express()
 
-app.use('/auth', AuthController)
-
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.use('/auth', AuthController)
 
 export default {
   path: '/api',

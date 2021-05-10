@@ -4,17 +4,15 @@ import guardMiddleware from './guardMiddleware'
 
 import registerRoute from './register'
 import loginRoute from './login'
-import tokenRoute from './token'
+import tokenRoute from './refresh'
 import meRoute from './me'
 
 const router = express.Router()
 
-router.get('/register', registerRoute)
-router.get('/login', loginRoute)
+router.post('/register', registerRoute)
+router.post('/login', loginRoute)
+router.post('/token', tokenRoute)
 
-router.use(guardMiddleware)
-
-router.get('/token', tokenRoute)
-router.get('/me', meRoute)
+router.get('/me', guardMiddleware, meRoute)
 
 export default router

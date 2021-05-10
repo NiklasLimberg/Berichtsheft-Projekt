@@ -26,8 +26,9 @@
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
+      "@nuxtjs/auth-next",
       "@types/node",
-      "@api/types/common",
+      "./api/types/common"
     ]
   },
   "exclude": [

@@ -33,21 +33,28 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    validateStatus: status => [400, 401, 403, 404, 500].includes(status)
+  },
   auth: {
     strategies: {
       local: {
+        scheme: 'refresh',
         token: {
-          property: 'token',
-          required: true,
+          property: 'accessToken',
+          maxAge: 1800,
           type: 'Bearer'
+        },
+        refreshToken: {
+          property: 'refreshToken',
+          data: 'refreshToken',
+          maxAge: 60 * 60 * 24 * 30
         },
         user: {
           property: 'user',
@@ -55,9 +62,11 @@ export default {
         },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get' }
-        }
+          refresh: { url: '/api/auth/refresh', method: 'post' },
+          user: { url: '/api/auth/me', method: 'get' },
+          logout: { url: '/api/auth/logout', method: 'post' }
+        },
+        autoLogout: false
       }
     }
   },
@@ -79,10 +88,5 @@ export default {
         config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
       }
     }
-  },
-  compilerOptions: {
-    types: [
-      '@nuxtjs/auth-next'
-    ]
   }
 }
