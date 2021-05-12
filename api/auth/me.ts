@@ -9,9 +9,11 @@ export default async function (req: express.Request, res: express.Response): Pro
     const user = await prisma.user.findUnique({ where: { id: req.userID }, rejectOnNotFound: true })
 
     res.json({
-      id: user.id,
-      email: user.email,
-      name: user.name
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name
+      }
     })
   } catch (error) {
     console.error(error)

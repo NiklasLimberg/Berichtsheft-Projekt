@@ -4,7 +4,7 @@ import guardMiddleware from './guardMiddleware'
 
 import registerRoute from './register'
 import loginRoute from './login'
-import tokenRoute from './refresh'
+import tokenRoute from './token'
 import meRoute from './me'
 
 const router = express.Router()

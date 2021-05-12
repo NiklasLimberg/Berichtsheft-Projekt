@@ -1,5 +1,18 @@
 <template>
   <div class="min-h-screen flex justify-center items-center text-center mx-auto">
+    <div class="absolute right-0 top-0 m-1 p-4 px-3">
+      <div v-if="$auth.loggedIn">
+        {{ $auth.user.name }}
+      </div>
+      <a
+        v-else
+        href="/login"
+        rel="noopener noreferrer"
+        class="m-1 p-4 px-3 border-green-400 hover:text-white hover:bg-green-400 border-2 rounded-md"
+      >
+        Login
+      </a>
+    </div>
     <div>
       <Logo />
       <div class="tracking-wider">

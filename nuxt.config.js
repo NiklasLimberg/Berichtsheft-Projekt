@@ -48,7 +48,7 @@ export default {
         scheme: 'refresh',
         token: {
           property: 'accessToken',
-          maxAge: 1800,
+          maxAge: 120,
           type: 'Bearer'
         },
         refreshToken: {
@@ -62,7 +62,7 @@ export default {
         },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },
-          refresh: { url: '/api/auth/refresh', method: 'post' },
+          refresh: { url: '/api/auth/token', method: 'post' },
           user: { url: '/api/auth/me', method: 'get' },
           logout: { url: '/api/auth/logout', method: 'post' }
         },

@@ -1,3 +1,4 @@
 export type tokenContent = {
-    userId: string
+    userId: string,
+    jti: string
 }

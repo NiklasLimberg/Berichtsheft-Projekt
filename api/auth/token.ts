@@ -1,27 +1,36 @@
 import express from 'express'
 
+import browser from 'browser-detect'
 import { PrismaClient } from '@prisma/client'
+import { verifyJWT, generateAccessToken, generateRefreshToken } from './tokenFunctions'
 
-import jwt from 'jsonwebtoken'
 const prisma = new PrismaClient()
 
-export default async function (req: express.Request, res: express.Response):Promise<void> {
-  const { token } = req.body
-
+export default async function (req: express.Request, res: express.Response) {
   try {
-    // Get the saved refreshToken from the Database
-    const refreshToken = await prisma.refreshToken.findUnique({ where: { token }, rejectOnNotFound: true })
+    const refreshToken = req.cookies['auth._refresh_token.local']
+    const decodedToken = await verifyJWT(refreshToken)
 
-    // Check that the refreshToken was issued to this user
-    if (req.userID !== refreshToken.userId) {
-      throw new Error("Decoded userID and refreshToken userId don't match")
+    const savedToken = await prisma.refreshToken.findUnique({ where: { tokenId: decodedToken.jti }, rejectOnNotFound: true })
+
+    if (decodedToken.userId !== savedToken.userId) {
+      throw new Error("refreshToken wasn't issued to this user")
     }
 
-    // Sign and send a new token
-    const accessToken = jwt.sign({ userId: refreshToken.userId }, 'accessTokenSecret', { expiresIn: '5min' })
+    const detectionResult = browser(req.headers['user-agent'])
+    const requestIdentificationString = `Last logged in on ${detectionResult.name}${detectionResult.version} on ${detectionResult.os}`
+
+    if (requestIdentificationString !== savedToken.identificationString) {
+      throw new Error("refreshToken wasn't issued to this device")
+    }
+
+    const { refreshToken: newRefreshToken, tokenId: newTokenId } = generateRefreshToken(savedToken.userId)
+
+    await prisma.refreshToken.update({ where: { id: savedToken.id }, data: { tokenId: newTokenId } })
 
     res.json({
-      accessToken
+      accessToken: generateAccessToken(savedToken.userId),
+      refreshToken: newRefreshToken
     })
   } catch (error) {
     console.error(error)
