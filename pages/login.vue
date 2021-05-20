@@ -8,7 +8,7 @@
       <form
         class="mt-8 space-y-6"
         method="post"
-        action="./api/auth/login"
+        @submit="login"
       >
         <input
           type="hidden"
@@ -24,6 +24,7 @@
             </label>
             <input
               id="email-address"
+              v-model="email"
               name="email"
               type="email"
               autocomplete="email"
@@ -42,8 +43,8 @@
             >Password</label>
             <input
               id="password"
+              v-model="password"
               name="password"
-              type="password"
               autocomplete="current-password"
               required
               class="appearance-none rounded-none relative block w-full
@@ -59,6 +60,7 @@
           <div class="flex items-center">
             <input
               id="remember_me"
+              v-model="rememberMe"
               name="remember_me"
               type="checkbox"
               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
@@ -110,3 +112,36 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  data () {
+    return {
+      email: '',
+      password: '',
+      rememberMe: false
+    }
+  },
+
+  methods: {
+    async login (e: Event) {
+      e.preventDefault()
+
+      try {
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password,
+            rememberMe: this.rememberMe
+          }
+        })
+
+        this.$router.replace('/')
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
+})
+</script>
