@@ -8,11 +8,13 @@ generator client {
 }
 
 model User {
-    id            String         @id @default(uuid())
-    email         String         @unique
+    id            String          @id @default(uuid())
+    email         String          @unique
     password      String
     name          String?
     refreshTokens RefreshToken[]
+    reports       Report[]
+    BuildingBlock BuildingBlock[]
 }
 
 model RefreshToken {
@@ -22,4 +24,28 @@ model RefreshToken {
     tokenId              String   @unique
     user                 User     @relation(fields: [userId], references: [id])
     userId               String
+}
+
+model Report {
+    id             String   @id @default(uuid())
+    weekNumber     Int
+    weekStart      DateTime
+    weekEnd        DateTime
+    workActivities String
+    instructions   String
+    curriculum     String
+    writtenBy      User     @relation(fields: [userId], references: [id])
+    userId         String
+    updatedAt      DateTime @updatedAt
+    createdAt      DateTime @default(now())
+}
+
+model BuildingBlock {
+    id        String   @id @default(uuid())
+    category  String
+    text      String
+    userId    String
+    writtenBy User     @relation(fields: [userId], references: [id])
+    updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
 }
