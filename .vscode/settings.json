@@ -13,5 +13,6 @@
   "vetur.format.defaultFormatter.stylus": "none",
   "eslint.run": "onType",
   "eslint.validate": ["vue", "html", "typescript" ],
-
+  "css.validate": false,
+  "tailwindCSS.validate": true
 }

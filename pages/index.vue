@@ -8,7 +8,7 @@
         v-else
         href="/login"
         rel="noopener noreferrer"
-        class="m-1 p-4 px-3 border-green-400 hover:text-white hover:bg-green-400 border-2 rounded-md"
+        class="m-1 p-4 px-3"
       >
         Login
       </a>
@@ -27,14 +27,14 @@
         <a
           href="https://nuxtjs.org/"
           rel="noopener noreferrer"
-          class="m-1 p-4 px-3 border-green-400 hover:text-white hover:bg-green-400 border-2 rounded-md"
+          class="button-primary m-1 p-4 px-3"
         >
           Documentation
         </a>
         <a
           href="https://github.com/NiklasLimberg/Berichtsheft-Projekt"
           rel="noopener noreferrer"
-          class="m-1 p-4 px-3 border-grey-600 hover:text-white hover:bg-gray-600 border-2 rounded-md"
+          class="button-primary m-1 p-4 px-3"
         >
           GitHub
         </a>
