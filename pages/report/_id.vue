@@ -42,7 +42,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+
+const TextEditor = () => process.client ? import('~/client-components/TextEditor.vue') : undefined
+
 export default Vue.extend({
+  components: {
+    'text-editor': TextEditor
+  },
   data () {
     return {
       duration: { start: '', end: '' },

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div ref="editorNode" />
+    <client-only>
+      <div>
+        <div ref="editorNode" />
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -36,28 +40,30 @@ export default Vue.extend({
   },
 
   mounted () {
-    this.editorInstance = new Quill(this.$refs.editorNode as Element, {
-      modules: {
-        toolbar: [
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          [{ font: [] }],
-          ['bold', 'italic', 'underline', 'strike'],
-          ['blockquote', 'code-block'],
-          [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }],
-          [{ color: [] }, { background: [] }],
-          ['clean'],
-          ['link', 'image', 'video'],
-          [{ direction: 'rtl' }]
-        ]
-      },
-      theme: 'snow'
+    this.$nextTick(() => {
+      this.editorInstance = new Quill(this.$refs.editorNode as Element, {
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ font: [] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }],
+            [{ color: [] }, { background: [] }],
+            ['clean'],
+            ['link', 'image', 'video'],
+            [{ direction: 'rtl' }]
+          ]
+        },
+        theme: 'snow'
+      })
+
+      // Set initial content that's going to be picked up by Quill
+      this.editorInstance.setText(this.value)
+
+      // Setup handler for whenever things change inside Quill
+      this.editorInstance.on('text-change', this.onEditorContentChange)
     })
-
-    // Set initial content that's going to be picked up by Quill
-    this.editorInstance.setText(this.value)
-
-    // Setup handler for whenever things change inside Quill
-    this.editorInstance.on('text-change', this.onEditorContentChange)
   },
 
   beforeDestroy () {
