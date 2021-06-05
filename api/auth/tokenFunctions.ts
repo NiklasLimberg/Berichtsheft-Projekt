@@ -14,7 +14,7 @@ function generateAccessToken (userId: string): string {
 
 function generateRefreshToken (userId: string):{ refreshToken: string, tokenId:string } {
   const tokenId = generateUUID()
-  const refreshToken = jwt.sign({ userId }, 'refreshTokenSecret', { jwtid: tokenId })
+  const refreshToken = jwt.sign({ userId }, 'refreshTokenSecret', { jwtid: tokenId, expiresIn: '30d' })
   return { refreshToken, tokenId }
 }
 

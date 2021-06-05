@@ -6,7 +6,7 @@
         <input id="eMail" v-model="eMail" type="email" class="input-primary">
       </label>
     </div>
-    <div class="sm:mt-4">
+    <div class="">
       <label for="eMailRepeat">
         <span>E-Mail des Betreuers (Wiederholung):</span>
         <input id="eMailRepeat" v-model="eMailRepeat" type="email" class="input-primary">
