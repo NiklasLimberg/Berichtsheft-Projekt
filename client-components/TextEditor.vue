@@ -1,10 +1,6 @@
 <template>
   <div>
-    <client-only>
-      <div>
-        <div ref="editorNode" />
-      </div>
-    </client-only>
+    <div v-once ref="editorNode" class="editor" />
   </div>
 </template>
 
@@ -34,12 +30,14 @@ export default Vue.extend({
       // Only update the content if it's changed from an external source
       // or else it'll act weird when you try to type anything
       if (newVal !== this.editorContent) {
-        this.editorInstance.setText(newVal)
+        (this.$refs.editorNode as HTMLDivElement).innerHTML = newVal
       }
     }
   },
 
   mounted () {
+    (this.$refs.editorNode as HTMLDivElement).innerHTML = this.value
+
     this.$nextTick(() => {
       this.editorInstance = new Quill(this.$refs.editorNode as Element, {
         modules: {
@@ -57,9 +55,6 @@ export default Vue.extend({
         },
         theme: 'snow'
       })
-
-      // Set initial content that's going to be picked up by Quill
-      this.editorInstance.setText(this.value)
 
       // Setup handler for whenever things change inside Quill
       this.editorInstance.on('text-change', this.onEditorContentChange)
@@ -81,5 +76,9 @@ export default Vue.extend({
 </script>
 
 <style>
-  @import 'quill/dist/quill.snow.css'
+  @import 'quill/dist/quill.snow.css';
+
+  .editor > div {
+    @apply h-64;
+  }
 </style>

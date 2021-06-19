@@ -28,14 +28,14 @@ model RefreshToken {
 
 model Report {
     id             String   @id @default(uuid())
-    weekNumber     Int
     weekStart      DateTime
     weekEnd        DateTime
+    section        String
     workActivities String
     instructions   String
     curriculum     String
     writtenBy      User     @relation(fields: [userId], references: [id])
-    userId         String   @unique
+    userId         String
     updatedAt      DateTime @updatedAt
     createdAt      DateTime @default(now())
 }
