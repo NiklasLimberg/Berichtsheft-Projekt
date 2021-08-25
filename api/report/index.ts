@@ -24,10 +24,10 @@ router.get('/:id', async (req: express.Request, res: express.Response): Promise<
 
 router.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
   try {
-    const { page, limit } = req.params
+    const { page = 1, limit = 25 } = req.query
 
-    const take = Number(limit || 25)
-    const skip = Number(page || 1) - 1 * 25
+    const take = Number(limit)
+    const skip = (Number(page) - 1) * take
 
     const [data, total] = await Promise.all([
       prisma.report.findMany({

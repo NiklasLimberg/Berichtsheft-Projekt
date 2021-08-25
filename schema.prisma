@@ -27,17 +27,18 @@ model RefreshToken {
 }
 
 model Report {
-    id             String   @id @default(uuid())
-    weekStart      DateTime
-    weekEnd        DateTime
-    section        String
-    workActivities String
-    instructions   String
-    curriculum     String
-    writtenBy      User     @relation(fields: [userId], references: [id])
-    userId         String
-    updatedAt      DateTime @updatedAt
-    createdAt      DateTime @default(now())
+    id              String   @id @default(uuid())
+    weekStart       DateTime
+    weekEnd         DateTime
+    section         String
+    workActivities  String
+    instructions    String
+    curriculum      String
+    superVisorEmail String
+    writtenBy       User     @relation(fields: [userId], references: [id])
+    userId          String
+    updatedAt       DateTime @updatedAt
+    createdAt       DateTime @default(now())
 }
 
 model BuildingBlock {
