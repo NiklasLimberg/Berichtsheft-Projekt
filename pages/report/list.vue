@@ -1,8 +1,13 @@
 <template>
-  <div>
-    <h1>
-      Reports List
-    </h1>
+  <div class="p-4">
+    <header class="flex place-content-between items-baseline gap-4 mb-4">
+      <h1>
+        Reports List
+      </h1>
+      <a href="/report/new">
+        Erstellen
+      </a>
+    </header>
     <div v-for="report in reports" :key="report.id">
       <report-overview :report="report" />
     </div>
@@ -25,8 +30,10 @@ export default Vue.extend({
     }
   },
   data () {
-    return {}
+    return {
+      reports: [],
+      total: 0
+    }
   }
-
 })
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <div class="grid-cols-2 gap-4">
+  <div class="grid grid-cols-2 gap-4">
     <span>Zeitraum:</span>
-    <span>{{ report.weekStart }} - {{ report.weekEnd }}</span>
+    <span>{{ report.weekStart|formatDate }} - {{ report.weekEnd|formatDate }}</span>
     <div>Ausbildungsabschnitt/-abteilung:</div>
     <span>{{ report.section }}</span>
     <div>Betreuer:</div>

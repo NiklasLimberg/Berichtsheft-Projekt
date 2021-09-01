@@ -51,10 +51,10 @@
       </div>
       <label class="mt-4" for="section">
         <span>Ausbildungsabschnitt/-abteilung</span>
-        <input class="input-primary" type="text">
+        <input v-model="report.section" class="input-primary" type="text">
       </label>
     </div>
-    <email-double-input class="mt-4" />
+    <email-double-input v-model="report.superVisorEmail" class="mt-4" />
     <div class="mt-4">
       <client-only>
         <h2 class="text-2xl">

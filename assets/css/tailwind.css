@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 
+h1 {
+    @apply text-5xl
+}
+
 .input-base {
     @apply border-2 rounded-md;
 }
