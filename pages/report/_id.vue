@@ -5,6 +5,9 @@
         <button class="button-primary m-1 p-4 px-3" @click="create()">
           Erstellen
         </button>
+        <a class="button-primary m-1 p-4 px-3" href="/">
+          Zurück
+        </a>
       </div>
       <div v-else>
         <button class="button-primary m-1 p-4 px-3" @click="save()">

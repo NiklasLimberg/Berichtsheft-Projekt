@@ -7,6 +7,9 @@
       <a href="/report/new">
         Erstellen
       </a>
+      <a href="/">
+        Zurück
+      </a>
     </header>
     <div v-for="report in reports" :key="report.id">
       <report-overview :report="report" />
@@ -17,6 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ReportOverview from '~/components/ReportOverview.vue'
+
 export default Vue.extend({
   components: { ReportOverview },
   async asyncData (context) {

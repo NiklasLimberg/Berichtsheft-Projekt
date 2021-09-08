@@ -1,58 +1,41 @@
 <template>
-  <div class="min-h-screen flex justify-center items-center text-center mx-auto">
-    <div class="absolute right-0 top-0 m-1 p-4 px-3">
-      <div v-if="$auth.loggedIn" class="flex gap-4 items-center">
-        <p>{{ $auth.user.name }}</p>
-        <a class="button-primary cursor-pointer m-1 p-2 px-1" @click="$auth.logout()">
-          Logout
-        </a>
-      </div>
-      <a
-        v-else
-        href="/login"
-        rel="noopener noreferrer"
-        class="m-1 p-4 px-3"
-      >
-        Login
-      </a>
-    </div>
-    <div>
-      <Logo />
-      <div class="tracking-wider">
-        <h1 class="text-6xl">
-          Berichtsheft-Projekt
-        </h1>
-        <h2 class="text-4xl">
-          built with Vue {{ version }}
-        </h2>
-      </div>
-      <div class="p-6">
-        <a
-          href="https://nuxtjs.org/"
-          rel="noopener noreferrer"
-          class="button-primary m-1 p-4 px-3"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/NiklasLimberg/Berichtsheft-Projekt"
-          rel="noopener noreferrer"
-          class="button-primary m-1 p-4 px-3"
-        >
-          GitHub
-        </a>
+  <div>
+    <Nav/>
+
+    <div class="w-screen h-screen">
+      <div class="h-screen flex flex-wrap place-content-center">
+        <div>
+          <a v-if="$auth.loggedIn" class="button-primary m-1 p-4 px-3 focus:ring-2" href="/report/new">
+            Berichtsheft schreiben
+          </a>
+          <a v-else class="button-primary m-1 p-4 px-3 focus:ring-2" href="/login">
+            Berichtsheft schreiben
+          </a>
+        </div>
+        <div>
+          <a v-if="$auth.loggedIn" class="button-primary m-1 p-4 px-3 focus:ring-2" href="/report/list">
+            Berichtshistorie
+          </a>
+          <a v-else class="button-primary m-1 p-4 px-3 focus:ring-2" href="/login">
+            Berichtshistorie
+          </a>
+        </div>
       </div>
     </div>
+
+    <EngineLabel/>
+    <LoggedIn/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Nav from "~/components/Nav.vue";
+import LoggedIn from "~/components/LoggedIn.vue";
+import EngineLabel from "~/components/EngineLabel.vue";
 
 export default Vue.extend({
-  computed: {
-    version: () => Vue.version
-  }
+  components: {LoggedIn, Nav, EngineLabel},
 })
 </script>
 
