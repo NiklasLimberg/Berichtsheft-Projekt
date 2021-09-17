@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav/>
+    <Nav />
 
     <div class="w-screen h-screen">
       <div class="h-screen flex flex-wrap place-content-center">
@@ -23,19 +23,19 @@
       </div>
     </div>
 
-    <EngineLabel/>
-    <LoggedIn/>
+    <EngineLabel />
+    <LoggedIn />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Nav from "~/components/Nav.vue";
-import LoggedIn from "~/components/LoggedIn.vue";
-import EngineLabel from "~/components/EngineLabel.vue";
+import Nav from '~/components/Nav.vue'
+import LoggedIn from '~/components/LoggedIn.vue'
+import EngineLabel from '~/components/EngineLabel.vue'
 
 export default Vue.extend({
-  components: {LoggedIn, Nav, EngineLabel},
+  components: { LoggedIn, Nav, EngineLabel }
 })
 </script>
 
